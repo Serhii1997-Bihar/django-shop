@@ -1,0 +1,147 @@
+{% extends "shop_templates/base.html" %}
+{% load static %}
+{% block title %} {{ product.name }} {% endblock %}
+{% block link %}<link href="{% static 'shop_styles/detail.css' %}" rel="stylesheet">{% endblock %}
+{% block content %}
+<div class="container-fluid d-flex justify-content-center">
+    <div style="text-align: center;">
+        <h2>
+            <a href="{% url 'detailpage' product.id %}" style="text-decoration: none; color: white;">{{ product.name }}</a>
+        </h2>
+        <div class="car mb-3" style="max-width: 1000px; height: auto; backdrop-filter: blur(4px); border-radius: 10px;">
+            <div class="row g-0" style="align-items: center;">
+                <div class="col-md-4 d-flex p-3" style="align-items: center;">
+                    <a class="image" data-bs-toggle="modal" data-bs-target="#imageModal">
+                        <img id="productImage" src="{{ product.image.url }}" style="cursor: pointer; width: 100%;
+                        object-fit: contain; border-radius: 10px;">
+                    </a>
+                    {% if product.video %}
+                    <a class="video" data-bs-toggle="modal" data-bs-target="#videoModal">
+                        <video id="productVideo" src="{{ product.video.url }}" controls preload="metadata"
+                        style="display: none; cursor: pointer; width: 100%; object-fit: contain; border-radius: 10px;"></video>
+                    </a>
+                    {% else %}
+
+                    {% endif %}
+                    <a class="replace" href="#" onclick="toggleMedia(event)">
+                        <img src="{% static 'shop_styles/Icon.png' %}" height="20px">
+                    </a>
+                </div>
+
+                <div class="col-md-8 py-4 container">
+                    <div class="card-body text-white">
+                        <a href="{% url 'categorypage' product.category.id %}" style="color: white; text-decoration: none;">Категорія: {{ product.category }}</a>
+                        <p style="">{{ product.country }},
+                            <a href="{% url 'brandpage' product.brand.id %}" style="color: white; text-decoration: none;">{{ product.brand }}</a></p>
+                        <p>{{ product.about }}</p>
+                        <div class="d-flex align-items-stretch" style="justify-content: space-between;">
+                            <div class="d-grid" style="flex: 1; text-align: center;">
+                                <p>Розміри: {% for el in sizes %} {{ el.size }} {% endfor %}</p>
+                                <p>Дата публікації: {{ product.date|date:"d.m.Y" }}</p>
+                                <h4 style="color: white;">Ціна: {{ product.price }} $</h4>
+                            </div>
+                            <div class="d-flex align-items-center" style="flex: 1; justify-content: center;">
+                                <form action="{% url 'cart_add' product.id %}" method="post" style="text-align: center;">
+                                    <p style="color: white;">{{ form.size }}</p>
+                                    <p style="color: white;">{{ form.quantity }}</p>
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-danger text-white">Додати</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content" style="background-color: rgba(0, 0, 0, 0.0);">
+                <div class="d-flex justify-content-center" style="width: 100%; height: 100vh; position: relative;">
+                    <img class="modal-img" id="modalImage" src="" alt="Product Image" style="width: auto;
+                    height: 100%; max-height: 100vh; object-fit: contain;">
+                    <span class="close" data-bs-dismiss="modal" style="position: absolute; z-index: 1000; color: white;
+                     font-size: 200%; cursor: pointer;">&times;</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content" style="background-color: rgba(0, 0, 0, 0.0);">
+                    <div class="d-flex justify-content-center" style="width: 100%; height: 100vh; position: relative;">
+                        <video id="modalVideo" controls style="width: auto; height: 100%; max-height: 100vh; object-fit: contain;"></video>
+                        <span class="close" data-bs-dismiss="modal" style="position: absolute; z-index: 1000; color: white; font-size: 200%; cursor: pointer;">&times;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<div class="container-fluid">
+    {% if messages %}
+        <div id="alert-box" class="alert alert-success" style="display: none;">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div><br><br><br><br>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const imageLink = document.querySelector('.image');
+        const modalImage = document.getElementById('modalImage');
+
+        imageLink.addEventListener('click', function () {
+            modalImage.src = this.querySelector('img').src;
+        });
+    });
+</script>
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+    const videoLinks = document.querySelectorAll('.video');
+    const modalVideo = document.getElementById('modalVideo');
+    const videoModal = document.getElementById('videoModal');
+
+    videoLinks.forEach(videoLink => {
+        videoLink.addEventListener('click', function () {
+            modalVideo.src = this.querySelector('video').src; // Встановлюємо src модального відео
+            modalVideo.play(); // Запускаємо відео автоматично при відкритті
+        });
+    });
+
+    videoModal.addEventListener('hidden.bs.modal', function () {
+        modalVideo.pause(); // Зупиняємо відео при закритті модального вікна
+        modalVideo.currentTime = 0; // Скидаємо час відтворення
+    });
+});
+</script>
+<script>
+    function toggleMedia(e) {
+        e.preventDefault(); // Скасувати перезавантаження сторінки
+        var image = document.getElementById('productImage');
+        var video = document.getElementById('productVideo');
+
+        // Переключення між зображенням та відео
+        if (video && video.src && video.src !== "" && video.style.display !== "none") {
+            // Якщо відео показане, сховати його та показати зображення
+            video.style.display = 'none';
+            image.style.display = 'block';
+        } else {
+            // Якщо зображення показане або відео відсутнє, показати відео
+            video.style.display = 'block';
+            image.style.display = 'none';
+        }
+    }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var alertBox = document.getElementById('alert-box');
+        if (alertBox) {
+            alertBox.style.display = 'block'; // Показуємо повідомлення
+            setTimeout(function() {
+                alertBox.style.display = 'none'; // Сховаємо через 2 секунди
+            }, 2000);
+        }
+    });
+</script>
+{% endblock %}

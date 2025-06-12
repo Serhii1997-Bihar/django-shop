@@ -1,0 +1,48 @@
+{% extends "shop_templates/base.html" %}
+{% load static %}
+{% block title %} Category {% endblock %}
+{% block link %}<link href="{% static 'shop_styles/main_style.css' %}" rel="stylesheet">{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="d-flex px-1 container-fluid" style="flex-wrap: wrap; justify-content: space-evenly; padding: 0px 30px;">
+            {% for el in category %}
+            <div class="d-grid ml-2 mt-3 px-2 py-2 text-left" style="border-radius: 10px;
+            box-shadow: black 0px 0px 50px 20px;
+            backdrop-filter: blur(4px); width: 270px;">
+                <b>{{ el.name }}, <a href="{% url 'categorypage' el.category.id %} ">{{ el.category }}</a></b>
+                <a href="{% url 'brandpage' el.brand.id %} ">{{ el.country }}, {{ el.brand }}</a>
+                <h5> Ціна {{ el.price }} $</h5>
+                <a href="{% url 'detailpage' el.id %} ">
+                    <img src="{{ el.image.url }}" style="width: 100%; object-fit: contain; border-radius: 10px;">
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="paginator">
+    {% if category.paginator.num_pages > 1 %}
+        {% if category.number > 1 %}
+            <a href="?page=1{% if query %}&query={{ query }}{% endif %}"><p class="page" style="color: white;">1</p></a>
+        {% endif %}
+
+        {% if category.number > 3 %}
+            <p style="color: white;">...</p>
+        {% endif %}
+
+        {% for p in category.paginator.page_range %}
+            {% if p >= category.number|add:"-2" and p <= category.number|add:"2" %}
+                {% if category.number == p %}
+                    <p style="border: white solid thin;" class="page">{{ p }}</p>
+                {% else %}
+                    <a href="?page={{ p }}{% if query %}&query={{ query }}{% endif %}"><p class="page" style="color: white;">{{ p }}</p></a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+        {% if category.number < category.paginator.num_pages|add:"-2" %}
+            <p style="color: white;">...</p>
+            <a href="?page={{ products.paginator.num_pages }}{% if query %}&query={{ query }}{% endif %}"><p class="page" style="color: white;">{{ products.paginator.num_pages }}</p></a>
+        {% endif %}
+    {% endif %}
+    </div>
+{% endblock %}

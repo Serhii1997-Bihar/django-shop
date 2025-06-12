@@ -1,0 +1,290 @@
+{% extends "shop_templates/base.html" %}
+{% load static %}
+{% block title %} {{ user.username }} {% endblock %}
+{% block link %}<link href="{% static 'account_styles/user_styles.css' %}" rel="stylesheet"> {% endblock %}
+{% block content %}
+<div class="container frame" style="color: white;">
+        <div class="text-center d-grid left-content">
+                <a style="font-size: 20px;">{{ user.username }}</a>
+                <a>{{ user.first_name }} {{ user.last_name }}</a>
+                <a class="image" data-bs-toggle="modal" data-bs-target="#imageModal" style="backdrop-filter: blur(4px);">
+                        <img src="{% if profile.photo %}{{ profile.photo.url }}{% else %}
+                        {% static 'account_styles/User.jpg' %}{% endif %}" alt="User Photo"
+                             style="object-fit: cover;
+                    border-radius: 15px; padding: 10px; height: 400px; width: 350px;">
+                </a>
+                <a href="#">
+                    <button class="btn btn-md mt-1 w-100" style="
+                        background: linear-gradient(to left top, darkred 5%, black);
+                        color: white; backdrop-filter: blur(4px);">Тестуємо</button>
+                </a>
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'usermessage' user.id %}">
+                    <button class="btn btn-md mt-1 w-100" type="submit" style="
+                            background: linear-gradient(to left top, darkred 5%, black);color: white;
+                            backdrop-filter: blur(4px);">Повідомлення</button>
+                </a>
+                {% else %}
+
+                {% endif %}
+                <form method="post" action="{% url 'searchinfo' user.id %}">
+                    {% csrf_token %}
+                    <button class="btn btn-md mt-1 w-100" style="
+                        background: linear-gradient(to left top, darkred 5%, black);
+                        color: white; backdrop-filter: blur(4px);">Пошук</button>
+                </form>
+        </div>
+        <div class="container right-content" style="font-size: 18px; line-height: 17px;">
+            <div class='d-flex container w-100'>
+                <div class="w-50 text-start" style="backdrop-filter: blur(4px); padding: 15px; border-radius: 15px;
+                     width: fit-content; height: fit-content; overflow: hidden;">
+                    <em style="font-size: 18px; line-height: 20px;">{{ content }}</em>
+                </div>
+                <div class="text-end w-50 d-grid" style="">
+                    <a>Електронна пошта: {{ user.email }}</a>
+                    <a>Дата народження: {{ profile.birth }}</a>
+                    <a>Захоплення: {{ profile.hobby }}</a>
+                    <a>Телефон: {{ profile.phone }}</a>
+                </div>
+            </div>
+            <div class="container d-grid w-100 mt-2">
+                <div class="d-grid" style="border-radius: 15px; backdrop-filter: blur(4px);">
+                    <div class="container mt-2 d-flex">
+                        <b id="openGalleryModal" style="cursor: pointer;">Фотогалерея</b>
+                    </div>
+                    <div class="d-flex " style="justify-content: space-around; overflow: hidden;">
+                        {% for el in images %}
+                        {% if el.images %}
+                        <a class="image p-2" data-bs-toggle="modal" data-bs-target="#imageModal">
+                            <img src="{{ el.images.url }}" style="object-fit: contain;
+                         height: 200px; width: auto; border-radius: 7px;">
+                        </a>
+                        {% else %}
+
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="d-grid mt-2" style="border-radius: 15px; backdrop-filter: blur(4px);">
+                    <div class="container mt-2 d-flex">
+                          <b id="openVideoGalleryModal" style="cursor: pointer;"
+                          data-bs-toggle="modal" data-bs-target="#videoGalleryModal">Відеогалерея</b>
+                    </div>
+                    <div class="d-flex" style="justify-content: space-around; overflow: hidden;">
+                        {% for en in main_videos %}
+                            {% if en.videos %}
+                                <a class="video p-2" data-bs-toggle="modal" data-bs-target="#videoModal">
+                                    <video src="{{ en.videos.url }}" controls height="220px" width="auto"
+                                           preload="auto" autoplay muted loop
+                                    style="backdrop-filter: blur(4px); border-radius: 7px;"></video>
+                                </a>
+                            {% else %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content" style="background-color: rgba(0, 0, 0, 0.0);">
+                    <div class="d-flex justify-content-center" style="width: 100%; height: 100vh; position: relative;">
+                        <img class="modal-img" id="modalImage" alt="Product Image"
+                             style="width: auto; height: 100%; max-height: 100vh; object-fit: contain;">
+                        <span class="close" data-bs-dismiss="modal" style="position: absolute;
+                            z-index: 1000; color: white; font-size: 200%; cursor: pointer;">&times;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content" style="background-color: rgba(0, 0, 0, 0.0);">
+                    <div class="d-flex justify-content-center" style="width: 100%; height: 100vh; position: relative;">
+                        <video id="modalVideo" controls preload="none"
+                               style="width: auto; height: 100%; max-height: 100vh; object-fit: contain;"></video>
+                        <span class="close" data-bs-dismiss="modal" style="position: absolute; z-index: 1000; color: white; font-size: 200%; cursor: pointer;">&times;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg container-fluid" style="background-color: 0 0 0 0.8;">
+                <div class="modal-content bg-dark">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="galleryModalLabel" style="color: white;">Фотогалерея</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        style="background-color: white;"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-flex" style="flex-wrap: wrap; gap: 10px; justify-content: center; overflow: auto;">
+                            {% for el in images %}
+                            {% if el.images %}
+                            <a class="image p-2" data-bs-toggle="modal" data-bs-target="#imageModal">
+                                <img src="{{ el.images.url }}" style="object-fit: contain; height: 250px;
+                                width: auto; border-radius: 7px;">
+                            </a>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="videoGalleryModal" tabindex="-1" aria-labelledby="videoGalleryModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content bg-dark">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="videoGalleryModalLabel">Відеогалерея</h5>
+                        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-flex" style="flex-wrap: wrap; gap: 10px; justify-content: center; overflow: auto;">
+                            {% for en in videos %}
+                                {% if en.videos %}
+                                    <a class="video" data-bs-toggle="modal" data-bs-target="#videoModal">
+                                        <video src="{{ en.videos.url }}" controls height="350px" preload="auto"
+                                               style="border-radius: 7px; object-fit: contain;"></video>
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="paginator">
+                        {% for p in videos.paginator.page_range %}
+                        {% if videos.number == p %}
+                        <p style="border: white solid thin;" class="page">{{ p }}</p>
+                        {% else %}
+                        <a href="?page={{ p }}"><p class="page" style="color: white;">{{ p }}</p></a>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+    const imageLinks = document.querySelectorAll('.image'); // Зберігаємо всі посилання на зображення
+    const modalImage = document.getElementById('modalImage');
+
+    imageLinks.forEach(imageLink => {
+        imageLink.addEventListener('click', function () {
+            modalImage.src = this.querySelector('img').src; // Встановлюємо src модального зображення
+        });
+    });
+});
+</script>
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+    const videoLinks = document.querySelectorAll('.video');
+    const modalVideo = document.getElementById('modalVideo');
+    const videoModal = document.getElementById('videoModal');
+
+    videoLinks.forEach(videoLink => {
+        videoLink.addEventListener('click', function () {
+            modalVideo.src = this.querySelector('video').src; // Встановлюємо src модального відео
+            modalVideo.play(); // Запускаємо відео автоматично при відкритті
+        });
+    });
+
+    videoModal.addEventListener('hidden.bs.modal', function () {
+        modalVideo.pause(); // Зупиняємо відео при закритті модального вікна
+        modalVideo.currentTime = 0; // Скидаємо час відтворення
+    });
+});
+</script>
+<script>
+document.getElementById('openGalleryModal').addEventListener('click', function() {
+    // Відкриття модального вікна
+    var galleryModal = new bootstrap.Modal(document.getElementById('galleryModal'));
+    galleryModal.show();
+});
+</script>
+<script>
+    // Очікуємо, поки сторінка повністю завантажиться
+document.addEventListener('DOMContentLoaded', function() {
+    // Отримуємо всі відео у відеогалереї
+    const videoLinks = document.querySelectorAll('#videoGalleryModal .video');
+
+    // Для кожного відео додаємо обробник події
+    videoLinks.forEach(function(videoLink) {
+        videoLink.addEventListener('click', function(event) {
+            // Запобігаємо переходу за посиланням
+            event.preventDefault();
+
+            // Отримуємо URL відео з атрибута data-video-url
+            const videoUrl = videoLink.getAttribute('data-video-url');
+
+            // Встановлюємо відео-джерело для модального вікна
+            const modalVideo = document.getElementById('modalVideo');
+            const videoSource = document.getElementById('videoSource');
+            videoSource.setAttribute('src', videoUrl);
+
+            // Перезавантажуємо відео, щоб воно правильно завантажилося
+            modalVideo.load();
+        });
+    });
+});
+
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const imageLinks = document.querySelectorAll('.image'); // Отримуємо всі посилання на зображення
+        const modalImage = document.getElementById('modalImage');
+        const deleteForm = document.getElementById('deleteImageForm'); // Форма для видалення
+
+        imageLinks.forEach(imageLink => {
+            imageLink.addEventListener('click', function () {
+                // Отримуємо ID зображення з атрибута data-id
+                const imageId = this.getAttribute('data-id');
+                // Оновлюємо action форми, підставляючи правильний ID
+                deleteForm.action = "{% url 'delete_image' 0 %}".replace('0', imageId);
+
+                // Встановлюємо зображення в модальному вікні
+                modalImage.src = this.querySelector('img').src;
+            });
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const galleryModal = document.getElementById('galleryModal');
+    const videoGalleryModal = document.getElementById('videoGalleryModal');
+
+    // Перевіряємо, чи відкрито будь-яке модальне вікно
+    const isGalleryModalOpen = localStorage.getItem('galleryModalOpen') === 'true';
+    const isVideoGalleryModalOpen = localStorage.getItem('videoGalleryModalOpen') === 'true';
+
+    // Якщо модальне вікно було відкрито до оновлення сторінки, відкриваємо його знову
+    if (isGalleryModalOpen) {
+        const galleryModalInstance = new bootstrap.Modal(galleryModal);
+        galleryModalInstance.show();
+    }
+
+    if (isVideoGalleryModalOpen) {
+        const videoGalleryModalInstance = new bootstrap.Modal(videoGalleryModal);
+        videoGalleryModalInstance.show();
+    }
+
+    // Зберігаємо стан модального вікна при його відкритті
+    galleryModal.addEventListener('show.bs.modal', function () {
+        localStorage.setItem('galleryModalOpen', 'true');
+    });
+
+    videoGalleryModal.addEventListener('show.bs.modal', function () {
+        localStorage.setItem('videoGalleryModalOpen', 'true');
+    });
+
+    // Скидаємо стан при закритті модального вікна
+    galleryModal.addEventListener('hidden.bs.modal', function () {
+        localStorage.setItem('galleryModalOpen', 'false');
+    });
+
+    videoGalleryModal.addEventListener('hidden.bs.modal', function () {
+        localStorage.setItem('videoGalleryModalOpen', 'false');
+    });
+});
+
+</script>
+{% endblock %}

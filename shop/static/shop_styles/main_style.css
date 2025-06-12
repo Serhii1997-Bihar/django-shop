@@ -1,0 +1,17 @@
+.container-fluid, a {color: white!important}
+.container-fluid a {text-decoration: none;}
+
+.paginator {display: flex; margin-top: 20px; justify-content: center;}
+.paginator a {text-decoration: none;}
+.page {background: black; text-decoration: none;
+    border-radius: 50px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    margin-left: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;}
+
+}

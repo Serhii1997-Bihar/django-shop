@@ -1,0 +1,44 @@
+a {color: white!important; text-decoration: none!important;}
+
+.all {display: grid;}
+.cart { color: white!important; box-shadow: black 0px 0px 50px 20px; margin-top: 1%; font-size: 1.1em;
+border-radius: 15px; backdrop-filter: blur(4px); text-align: center; width: 75%;}
+.cart img {height: 150px; width: 200px; object-fit: cover; object-position: center;
+border-radius: 10px;}
+.cart td, .cart th {padding-top: 2%; padding-bottom: 2%;}
+
+
+.order {color: white!important; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+border-radius: 15px; backdrop-filter: blur(4px); display: flex; justify-content: center; margin-bottom: 2%;}
+
+.form-group {display: grid; margin-bottom: 2%;
+text-align: center;}
+.form-group p {margin: 0;}
+.form-group button {width: 100%; font-size: 20px; color: white;
+ background:linear-gradient(to left top, black, red); }
+
+
+
+
+@media (max-width: 992px) {
+    .cart, .order {font-size: 0.8em;}
+    .cart img {height: 120px; width: 150px;}
+    a .btn {font-size: 15px!important;}
+}
+@media (max-width: 768px) {
+    .cart {font-size: 0.4em;}
+    .cart img {height: 100px; width: 100px;}
+    a .btn {font-size: 9px!important;}
+    .form-group {display: grid;}
+    .ord {font-size: 1em;}
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+.input-group button {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+}

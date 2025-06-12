@@ -1,0 +1,40 @@
+{% extends "shop_templates/base.html" %}
+{% load static %}
+{% block title %} Dialogue {% endblock %}
+{% block link %}<link href="" rel="stylesheet"> {% endblock %}
+{% block content %}
+<div class="container d-grid text-center" style="color: white;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <a href="{% url 'messagesin' request.user.id %}"
+                            style="text-decoration: none; color: white;">Мої повідомлення</a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="py-3">
+                                {% if sender_users %}
+                                    {% for sender in sender_users %}
+                                        <div class="mt-1 py-2" style="backdrop-filter: blur(4px); border-radius: 10px;">
+                                            <a style="color: white; text-decoration: none;"
+                                               href="{% url 'dialogue' sender.id %}"><strong>{{ sender.username }}</strong>
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p>У вас немає повідомлень.</p>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    {% block link %} {% endblock %}
+    <link rel="icon" href="{% static 'shop_styles/Logo.png' %}" type="image/png">
+    <link href="{% static 'shop_styles/base.css' %}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,400;1,300&family=LXGW+WenKai+TC:wght@300;400;700&family=Pangolin&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg" style="margin-top: -2%;">
+          <div class="container">
+            <a class="navbar-brand" href="{% url 'mainpage' %}">
+              <img src="{% static 'shop_styles/Logo.png' %}" style="height: 100px;"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation" style="
+                    border-radius: 15px;">
+                <span><img src="{% static 'shop_styles/Menu.png' %}" style="height: 25px;"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="align-items: flex-end;">
+                <li class="nav-item">
+                    {% if request.user.is_authenticated %}
+                  <a class="nav-link" aria-current="page" href="{% url 'account' request.user.id %}">Аккаунт</a>
+                    {% else %}
+                  <a class="nav-link" aria-current="page" href="{% url 'login' %}">Увійти</a>
+                    {% endif %}
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                     aria-expanded="false">
+                    Магазин
+                  </a>
+                  <ul class="dropdown-menu" style="background-color: transparent !important;
+                  backdrop-filter: blur(5px);">
+                    <li><a class="dropdown-item" href="{% url 'mainpage' %}">Асортимент</a></li>
+                    <li><a class="dropdown-item" href="{% url 'cart' %}">Корзина</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'adminpage' %}">Адміністрація</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" aria-disabled="true" href="{% url 'usersaccounts' %}">Користувачі</a>
+                </li>
+              </ul>
+              <form class="d-flex" method="get">
+                    <input type="hidden" name="page" value="{{ products.number }}">
+                    <input class="form-control me-2" name="query" value="{{ query|default:'' }}" placeholder="Пошук...">
+                    <button class="btn btn-outline-danger" style="color: white!important;" type="submit">Шукати</button>
+              </form>
+
+
+            </div>
+          </div>
+        </nav>
+        {% block content %}  {% endblock %}
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous">
+        </script>
+</body>
+</html>

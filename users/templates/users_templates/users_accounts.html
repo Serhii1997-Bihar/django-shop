@@ -1,0 +1,25 @@
+{% extends "shop_templates/base.html" %}
+{% load static %}
+{% block title %} Accounts {% endblock %}
+{% block link %}<link href="{% static 'users_styles/users_styles.css' %}" rel="stylesheet"> {% endblock %}
+{% block content %}
+        <div class="container-fluid d-grid justify-content-center" style="color: white;">
+                        {% for user in users %}
+                  <a href="{% url 'userperson' user.id %}" style="text-decoration: none;">
+                        <div class="d-flex container p-3 mt-3 w-100" style="color: white; backdrop-filter: blur(4px);
+                                  border-radius: 15px;">
+                                <div class="container w-50">
+                                      <img src="{% if user.profileuser.photo %} {{ user.profileuser.photo.url }} {% else %}
+                        {% static 'account_styles/User.jpg' %}{% endif %}" height="200px" width="200px"
+                                           style="object-fit: cover; object-position: top; border-radius: 15px;">
+                                </div>
+                                <div class="container w-50">
+                                        <h2>{{ user.username }}</h2>
+                                        <p>{{ user.email }}</p>
+                                        <p>{{ user.profileuser.phone }}</p>
+                                </div>
+                        </div>
+                  </a>
+                          {% endfor %}
+        </div>
+{% endblock %}

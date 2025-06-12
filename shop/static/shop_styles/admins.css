@@ -1,0 +1,23 @@
+@media (max-width: 1200px) {
+    .carousel-item {
+        flex-direction: column; /* Зміщує елементи в стовпчик */
+        align-items: center;
+    }
+    .carousel-item > div {
+        width: 100%; /* Ширина кожного блоку 100% */
+        text-align: center; /* Центрування тексту */
+    }
+    .carousel-item .d-flex {
+        flex-direction: column; /* Вертикальне вирівнювання блоків */
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .carousel-item .d-flex img {
+        max-height: 400px; /* Обмеження висоти для фото */
+    }
+    .information {width: 100%;}
+}
+
+
+@media (min-width: 1201px) {
+.information {width: 25%;}}

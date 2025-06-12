@@ -1,0 +1,48 @@
+{% extends "shop_templates/base.html" %}
+{% load static %}
+{% block title %} Dialogue {% endblock %}
+{% block link %}<link href="{% static 'account_styles/user_styles.css' %}" rel="stylesheet"> {% endblock %}
+{% block content %}
+       <div class="container d-grid text-center" style="color: white;">
+            <div class="d-grid">
+                <div class="container d-flex" style="justify-content: space-around;">
+                    <a style="color: white; text-decoration: none;"
+                       href="{% url 'messagesin' request.user.id %}">Вхідні повідомлення</a>
+                </div>
+                <div class="py-3">
+                    <div class="d-flex flex-column-reverse">
+                        {% for message in messages %}
+                        <div class="message d-flex py-2"
+                             style="align-items: center; height: auto; margin-bottom: 10px; backdrop-filter: blur(4px);
+                                    justify-content: {% if message.sender == req_user %}flex-end{% else %}flex-start{% endif %};">
+                            {% if message.sender == req_user %}
+                            <div style="border-radius: 10px; padding: 5px; color: white; max-width: 40%; word-wrap: break-word;">
+                                <a style="font-size: 10pt;">{{ message.content }}</a>
+                            </div>
+                            <a href="{% url 'account' request.user.id %}">
+                                <img src="{{ req_profile.photo.url }}" style="height: 40px; width: 40px; object-fit: cover; object-position: top; margin-left: 10px;">
+                            </a>
+                            {% else %}
+                            <a href="{% url 'userperson' user.id %}">
+                                <img src="{{ profile.photo.url }}" style="height: 40px; width: 40px; object-fit: cover; object-position: top; margin-left: 10px;">
+                            </a>
+                            <div style="border-radius: 10px; padding: 5px; max-width: 40%; word-wrap: break-word;">
+                                <a style="font-size: 10pt;">{{ message.content }}</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+           <div class="paginator">
+                {% for p in messages.paginator.page_range %}
+                {% if messages.number == p %}
+                <p style="border: white solid thin;" class="page">{{ p }}</p>
+                {% else %}
+                <a href="?page={{ p }}"><p class="page" style="color: white;">{{ p }}</p></a>
+                {% endif %}
+                {% endfor %}
+            </div>
+       </div>
+{% endblock %}

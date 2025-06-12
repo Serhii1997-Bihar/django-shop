@@ -1,0 +1,24 @@
+.image, .video {cursor: pointer!important;}
+
+
+@media (min-width: 1300px)
+{.frame {display: flex;} .left-content img {height: 440px; width: auto;} }
+
+
+@media (max-width: 1299px)
+{.frame {display: grid;} .right-content img, .right video {max-width: 100%; height: auto;} .right-content {margin-top: 5%;}}
+
+
+.paginator {display: flex; margin-top: 20px; justify-content: center;}
+.paginator a {text-decoration: none;}
+.page {background: black; text-decoration: none;
+    border-radius: 50px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    margin-left: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;}
+

@@ -1,0 +1,43 @@
+{% extends "shop_templates/base.html" %}
+{% load static %}
+{% block title %} Cart {% endblock %}
+{% block link %}<link href="{% static 'cart_styles/cart.css' %}" rel="stylesheet"> {% endblock %}
+{% block content %}
+        <h2 style="text-align: center; color: white;">Корзина товарів</h2>
+        <div class="container d-flex justify-content-center">
+            <table class="cart">
+                <thead>
+                    <tr>
+                        <th>Світлина</th>
+                        <th>Опис</th>
+                        <th>Сума</th>
+                        <th>Видалити</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart %}
+                    <tr>
+                        <td><img src="{{ item.product.image.url }}"></td>
+                        <td>
+                            <a>{{ item.product.name }}</a>
+                            <div class="d-grid">
+                                <a>{{ item.size }}</a>
+                                <a>{{ item.quantity }} шт</a>
+                                <a>{{ item.product.price }} $</a>
+                            </div>
+                        </td>
+                        <td class="num">{{ item.total_price }} $</td>
+                        <td><a href="{% url 'cart_remove' item.product.id %}">&times;</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="container" style="text-align: center;">
+                <a href="{% url 'order' %}">
+                    <button type="submit" class="btn btn-lg mt-3"
+                    style="width: 40%; color: white; font-size: 20px; margin-bottom: 2%;
+                    background: linear-gradient(to left top, black, red);">Оформити, {{ cart.get_total_price }} $</button>
+                </a>
+        </div>
+{% endblock %}

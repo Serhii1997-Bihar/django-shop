@@ -1,0 +1,26 @@
+body {
+    background: url('Red.jpg');
+    background-repeat: repeat;
+    background-size: auto;
+    font-family: "Pangolin", cursive!important;
+    min-height: 100vh;
+    color: white;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    color: white!important;
+}
+
+button.navbar-toggler:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+body::-webkit-scrollbar {
+    width: 0;
+}
