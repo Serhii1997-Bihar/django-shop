@@ -9,7 +9,7 @@
                     <tr>
                         <th>
                             <a href="{% url 'messagesin' request.user.id %}"
-                            style="text-decoration: none; color: white;">Мої повідомлення</a>
+                            style="text-decoration: none; color: white;">My messages</a>
                         </th>
                     </tr>
                 </thead>
@@ -26,7 +26,7 @@
                                         </div>
                                     {% endfor %}
                                 {% else %}
-                                    <p>У вас немає повідомлень.</p>
+                                    <p>You don't have any messages.</p>
                                 {% endif %}
                             </div>
                         </td>

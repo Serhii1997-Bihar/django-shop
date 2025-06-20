@@ -3,15 +3,18 @@
 {% block title %} Cart {% endblock %}
 {% block link %}<link href="{% static 'cart_styles/cart.css' %}" rel="stylesheet"> {% endblock %}
 {% block content %}
-        <h2 style="text-align: center; color: white;">Корзина товарів</h2>
+        <h2 style="text-align: center; color: white;">Shopping Cart</h2>
         <div class="container d-flex justify-content-center">
             <table class="cart">
                 <thead>
                     <tr>
-                        <th>Світлина</th>
-                        <th>Опис</th>
-                        <th>Сума</th>
-                        <th>Видалити</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Size</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                        <th>Remove</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -20,13 +23,11 @@
                         <td><img src="{{ item.product.image.url }}"></td>
                         <td>
                             <a>{{ item.product.name }}</a>
-                            <div class="d-grid">
-                                <a>{{ item.size }}</a>
-                                <a>{{ item.quantity }} шт</a>
-                                <a>{{ item.product.price }} $</a>
-                            </div>
                         </td>
-                        <td class="num">{{ item.total_price }} $</td>
+                        <td class="num">{{ item.size }}</td>
+                        <td class="num">{{ item.quantity }}</td>
+                        <td class="num">{{ item.product.price }}$</td>
+                        <td class="num">{{ item.total_price }}$</td>
                         <td><a href="{% url 'cart_remove' item.product.id %}">&times;</a></td>
                     </tr>
                     {% endfor %}
@@ -37,7 +38,9 @@
                 <a href="{% url 'order' %}">
                     <button type="submit" class="btn btn-lg mt-3"
                     style="width: 40%; color: white; font-size: 20px; margin-bottom: 2%;
-                    background: linear-gradient(to left top, black, red);">Оформити, {{ cart.get_total_price }} $</button>
+                    background: linear-gradient(to left top, black, red);">
+                        Checkout, {{ cart.get_total_price }} $
+                    </button>
                 </a>
         </div>
 {% endblock %}

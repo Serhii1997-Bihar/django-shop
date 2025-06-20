@@ -7,32 +7,32 @@
                 <form method="post" enctype="multipart/form-data" style="border-radius: 15px; backdrop-filter: blur(4px);"
                       class="px-5 py-4">
                     {% csrf_token %}
-                    <b>Ім'я</b>
+                    <b>First Name</b>
                     <p>{{ user_form.first_name }}</p>
-                    <b>Прізвище</b>
+                    <b>Last Name</b>
                     <p>{{ user_form.last_name }}</p>
-                    <b>Електронна пошта</b>
+                    <b>Email</b>
                     <p>{{ user_form.email }}</p>
-                    <b>Народження</b>
+                    <b>Birthdate</b>
                     <p>{{ profile_form.birth }}</p>
-                    <b>Головне фото</b>
+                    <b>Profile Photo</b>
                     <p>{{ profile_form.photo }}</p>
-                    <b>Захоплення</b>
+                    <b>Hobbies</b>
                     <p>{{ profile_form.hobby }}</p>
-                    <b>Місто</b>
+                    <b>City</b>
                     <p>{{ profile_form.city }}</p>
-                    <b>Телефон</b>
+                    <b>Phone</b>
                     <p>{{ profile_form.phone }}</p>
-                    <b>Інформація</b>
+                    <b>Information</b>
                     <p>{{ profile_form.info }}</p>
-                    <b>Фото галерея</b>
+                    <b>Photo Gallery</b>
                     <p>{{ gallery_form.images }}</p>
-                    <b>Відео галерея</b>
+                    <b>Video Gallery</b>
                     <p>{{ gallery_form.videos }}</p>
                     <p>{{ user_form.captcha }}</p>
                         <button type="submit" class="mt-3 w-100 p-2" style="background: linear-gradient(to left top,
                         darkred 5%, black);
-                        color: white; backdrop-filter: blur(4px); border-radius: 10px;">Редагувати</button>
+                        color: white; backdrop-filter: blur(4px); border-radius: 10px;">Edit</button>
                 </form>
 
         </div>

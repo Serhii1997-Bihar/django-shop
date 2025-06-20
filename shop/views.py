@@ -18,9 +18,9 @@ def main_pg(request):
         all_products = ProductsModel.objects.filter(
             Q(name__icontains=query) | Q(about__icontains=query)).order_by('date').select_related('category', 'country', 'brand', 'sex')
     else:
-        all_products = ProductsModel.objects.all().order_by('-date').select_related('category', 'country', 'brand', 'sex')
+        all_products = ProductsModel.objects.all().order_by('date').select_related('category', 'country', 'brand', 'sex')
 
-    paginator = Paginator(all_products, 10)
+    paginator = Paginator(all_products, 8)
     page = request.GET.get('page')
     products = paginator.get_page(page)
 
@@ -34,7 +34,7 @@ def category_pg(request, id):
     if query:
         category_prod = category_prod.filter(name__icontains=query)
 
-    paginator = Paginator(category_prod, 10)
+    paginator = Paginator(category_prod, 8)
     page = request.GET.get('page')
     category = paginator.get_page(page)
 
@@ -52,7 +52,7 @@ def brand_pg(request, id):
     if query:
         brand_prod = brand_prod.filter(name__icontains=query)
 
-    paginator = Paginator(brand_prod, 10)
+    paginator = Paginator(brand_prod, 8)
     page = request.GET.get('page')
     brand = paginator.get_page(page)
 

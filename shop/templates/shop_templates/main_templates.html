@@ -1,26 +1,29 @@
 {% extends "shop_templates/base.html" %}
 {% load static %}
-{% block title %}Shop{% endblock %}
+{% block title %}LaCroix Lab{% endblock %}
 {% block link %}<link href="{% static 'shop_styles/main_style.css' %}" rel="stylesheet">{% endblock %}
 {% block content %}
-    <div class="container-fluid">
-        <div class="d-flex container-fluid" style="flex-wrap: wrap; justify-content: space-evenly;">
-            {% for el in products %}
-            <div class="d-grid ml-2 mt-3 px-2 py-2 text-left"
-                 style="backdrop-filter: blur(4px); border-radius: 10px;
-                 box-shadow: black 0px 0px 50px 20px; width: 270px;">
-                <b>{{ el.name }}, <a href="{% url 'categorypage' el.category.id %} ">{{ el.category }}</a></b>
-                <a href="{% url 'brandpage' el.brand.id %} ">{{ el.country }}, {{ el.brand }}</a>
-                <h5> Ціна {{ el.price }} $</h5>
-                <div style="text-align: center;">
-                    <a href="{% url 'detailpage' el.id %} ">
-                        <img src="{{ el.image.url }}" style="width: 100%; object-fit: contain; border-radius: 10px;">
-                    </a>
-                </div>
+    <div class="container">
+      <div class="row justify-content-center g-4">
+        {% for el in products %}
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="card product-card text-white h-100">
+            <div class="card-body d-flex flex-column">
+              <div class="mb-2">
+                <b>{{ el.name }}, <a href="{% url 'categorypage' el.category.id %}" class="text-white text-decoration-none">{{ el.category }}</a></b><br>
+                <a href="{% url 'brandpage' el.brand.id %}" class="text-white text-decoration-none">{{ el.country }}, {{ el.brand }}</a>
+              </div>
+              <h5 class="mt-auto">Price {{ el.price }} $</h5>
             </div>
-            {% endfor %}
+            <a href="{% url 'detailpage' el.id %}">
+              <img src="{{ el.image.url }}" class="card-img-bottom product-img" alt="{{ el.name }}">
+            </a>
+          </div>
         </div>
+        {% endfor %}
+      </div>
     </div>
+
     <div class="paginator">
     {% if products.paginator.num_pages > 1 %}
         {% if products.number > 1 %}

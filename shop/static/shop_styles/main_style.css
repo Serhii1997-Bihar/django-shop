@@ -3,15 +3,45 @@
 
 .paginator {display: flex; margin-top: 20px; justify-content: center;}
 .paginator a {text-decoration: none;}
-.page {background: black; text-decoration: none;
-    border-radius: 50px;
-    text-align: center;
-    width: 30px;
-    height: 30px;
-    margin-left: 3px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;}
+.product-card {
+  background-color: rgba(0, 0, 0, 0.1)!important;
+  backdrop-filter: blur(25px)!important;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
 
+.product-card:hover {
+  transform: scale(1.03);
+}
+
+.product-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+a {
+  color: white;
+}
+
+a:hover {
+  color: #d6d6d6;
+}
+
+.page {
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+  border-radius: 50px;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  margin-left: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }

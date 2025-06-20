@@ -54,7 +54,7 @@ def UserAccount(request, id):
 
     import requests
     url = 'http://api.forismatic.com/api/1.0/'
-    params = {'method': 'getQuote', 'lang': 'ru', 'format': 'json'}
+    params = {'method': 'getQuote', 'lang': 'en', 'format': 'json'}
     response = requests.get(url, params=params)
     resp = response.json()
     text = resp['quoteText']
@@ -143,7 +143,7 @@ def UserPerson(request, id):
     videos = paginator.get_page(page)
 
     url = 'http://api.forismatic.com/api/1.0/'
-    params = {'method': 'getQuote', 'lang': 'ru', 'format': 'json'}
+    params = {'method': 'getQuote', 'lang': 'en', 'format': 'json'}
     response = requests.get(url, params=params)
     resp = response.json()
     text = resp['quoteText']

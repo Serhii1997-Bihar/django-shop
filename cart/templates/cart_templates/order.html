@@ -3,33 +3,33 @@
 {% block title %} Order {% endblock %}
 {% block link %}<link href="{% static 'cart_styles/cart.css' %}" rel="stylesheet"> {% endblock %}
 {% block content %}
-    <h2 style="text-align: center; color: white;">Оформлення замовлення</h2>
+    <h2 style="text-align: center; color: white;">Checkout</h2>
     <div class="container-fluid d-flex justify-content-center">
         <div class="order w-50 py-3">
             <form method="post">
                 {% csrf_token %}
                 <div class="form-group">
-                    <p>Ваше ім'я:</p>
+                    <p>Your name:</p>
                     {{ form.name }}
                 </div>
                 <div class="form-group">
-                    <p>Ваше місто:</p>
+                    <p>Your city:</p>
                     {{ form.address }}
                 </div>
                 <div class="form-group">
-                    <p>Ваша електронна пошта:</p>
+                    <p>Your email:</p>
                     {{ form.mail }}
                 </div>
                 <div class="form-group">
-                    <p>Ваш телефон:</p>
+                    <p>Your phone:</p>
                     {{ form.phone }}
                 </div>
                 <div class="form-group">
-                    <p>Коментар:</p>
+                    <p>Comment:</p>
                     {{ form.comment }}
                 </div>
                 <div class="form-group ord">
-                    <button type="submit">Замовити</button>
+                    <button type="submit">Order</button>
                 </div>
             </form>
         </div>

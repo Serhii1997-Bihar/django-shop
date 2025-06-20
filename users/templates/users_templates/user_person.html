@@ -16,13 +16,13 @@
                 <a href="#">
                     <button class="btn btn-md mt-1 w-100" style="
                         background: linear-gradient(to left top, darkred 5%, black);
-                        color: white; backdrop-filter: blur(4px);">Тестуємо</button>
+                        color: white; backdrop-filter: blur(4px);">Testing</button>
                 </a>
                 {% if request.user.is_authenticated %}
                 <a href="{% url 'usermessage' user.id %}">
                     <button class="btn btn-md mt-1 w-100" type="submit" style="
                             background: linear-gradient(to left top, darkred 5%, black);color: white;
-                            backdrop-filter: blur(4px);">Повідомлення</button>
+                            backdrop-filter: blur(4px);">Send message</button>
                 </a>
                 {% else %}
 
@@ -31,7 +31,7 @@
                     {% csrf_token %}
                     <button class="btn btn-md mt-1 w-100" style="
                         background: linear-gradient(to left top, darkred 5%, black);
-                        color: white; backdrop-filter: blur(4px);">Пошук</button>
+                        color: white; backdrop-filter: blur(4px);">Search about him</button>
                 </form>
         </div>
         <div class="container right-content" style="font-size: 18px; line-height: 17px;">
@@ -41,16 +41,16 @@
                     <em style="font-size: 18px; line-height: 20px;">{{ content }}</em>
                 </div>
                 <div class="text-end w-50 d-grid" style="">
-                    <a>Електронна пошта: {{ user.email }}</a>
-                    <a>Дата народження: {{ profile.birth }}</a>
-                    <a>Захоплення: {{ profile.hobby }}</a>
-                    <a>Телефон: {{ profile.phone }}</a>
+                    <a>Email: {{ user.email }}</a>
+                    <a>Date of birthday: {{ profile.birth }}</a>
+                    <a>Hobby: {{ profile.hobby }}</a>
+                    <a>Phone: {{ profile.phone }}</a>
                 </div>
             </div>
             <div class="container d-grid w-100 mt-2">
                 <div class="d-grid" style="border-radius: 15px; backdrop-filter: blur(4px);">
                     <div class="container mt-2 d-flex">
-                        <b id="openGalleryModal" style="cursor: pointer;">Фотогалерея</b>
+                        <b id="openGalleryModal" style="cursor: pointer;">Photo</b>
                     </div>
                     <div class="d-flex " style="justify-content: space-around; overflow: hidden;">
                         {% for el in images %}
@@ -68,7 +68,7 @@
                 <div class="d-grid mt-2" style="border-radius: 15px; backdrop-filter: blur(4px);">
                     <div class="container mt-2 d-flex">
                           <b id="openVideoGalleryModal" style="cursor: pointer;"
-                          data-bs-toggle="modal" data-bs-target="#videoGalleryModal">Відеогалерея</b>
+                          data-bs-toggle="modal" data-bs-target="#videoGalleryModal">Video</b>
                     </div>
                     <div class="d-flex" style="justify-content: space-around; overflow: hidden;">
                         {% for en in main_videos %}
@@ -112,7 +112,7 @@
             <div class="modal-dialog modal-lg container-fluid" style="background-color: 0 0 0 0.8;">
                 <div class="modal-content bg-dark">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="galleryModalLabel" style="color: white;">Фотогалерея</h5>
+                        <h5 class="modal-title" id="galleryModalLabel" style="color: white;">Photo</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         style="background-color: white;"></button>
                     </div>
@@ -135,7 +135,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content bg-dark">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="videoGalleryModalLabel">Відеогалерея</h5>
+                        <h5 class="modal-title" id="videoGalleryModalLabel">Video</h5>
                         <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">

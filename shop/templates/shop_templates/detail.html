@@ -4,48 +4,45 @@
 {% block link %}<link href="{% static 'shop_styles/detail.css' %}" rel="stylesheet">{% endblock %}
 {% block content %}
 <div class="container-fluid d-flex justify-content-center">
-    <div style="text-align: center;">
-        <h2>
+    <div style="container text-align: center;">
+        <h2 class="text-center">
             <a href="{% url 'detailpage' product.id %}" style="text-decoration: none; color: white;">{{ product.name }}</a>
         </h2>
-        <div class="car mb-3" style="max-width: 1000px; height: auto; backdrop-filter: blur(4px); border-radius: 10px;">
+        <div class="detail-card mb-3" style="max-width: 1000px; height: auto; backdrop-filter: blur(25px); border-radius: 5px;">
             <div class="row g-0" style="align-items: center;">
                 <div class="col-md-4 d-flex p-3" style="align-items: center;">
                     <a class="image" data-bs-toggle="modal" data-bs-target="#imageModal">
                         <img id="productImage" src="{{ product.image.url }}" style="cursor: pointer; width: 100%;
-                        object-fit: contain; border-radius: 10px;">
+                        object-fit: contain; border-radius: 5px;">
                     </a>
                     {% if product.video %}
                     <a class="video" data-bs-toggle="modal" data-bs-target="#videoModal">
                         <video id="productVideo" src="{{ product.video.url }}" controls preload="metadata"
-                        style="display: none; cursor: pointer; width: 100%; object-fit: contain; border-radius: 10px;"></video>
+                        style="display: none; cursor: pointer; width: 100%; object-fit: contain; border-radius: 5px;"></video>
                     </a>
                     {% else %}
 
                     {% endif %}
-                    <a class="replace" href="#" onclick="toggleMedia(event)">
-                        <img src="{% static 'shop_styles/Icon.png' %}" height="20px">
-                    </a>
                 </div>
 
                 <div class="col-md-8 py-4 container">
                     <div class="card-body text-white">
-                        <a href="{% url 'categorypage' product.category.id %}" style="color: white; text-decoration: none;">Категорія: {{ product.category }}</a>
+                        <a href="{% url 'categorypage' product.category.id %}" style="color: white; text-decoration: none;">Category: {{ product.category }}</a>
                         <p style="">{{ product.country }},
                             <a href="{% url 'brandpage' product.brand.id %}" style="color: white; text-decoration: none;">{{ product.brand }}</a></p>
                         <p>{{ product.about }}</p>
                         <div class="d-flex align-items-stretch" style="justify-content: space-between;">
                             <div class="d-grid" style="flex: 1; text-align: center;">
-                                <p>Розміри: {% for el in sizes %} {{ el.size }} {% endfor %}</p>
-                                <p>Дата публікації: {{ product.date|date:"d.m.Y" }}</p>
-                                <h4 style="color: white;">Ціна: {{ product.price }} $</h4>
+                                <p>Sizes: {% for el in sizes %} {{ el.size }} {% endfor %}</p>
+                                <p>Date: {{ product.date|date:"d.m.Y" }}</p>
+                                <h4 style="color: white;">Price: {{ product.price }} $</h4>
                             </div>
                             <div class="d-flex align-items-center" style="flex: 1; justify-content: center;">
                                 <form action="{% url 'cart_add' product.id %}" method="post" style="text-align: center;">
                                     <p style="color: white;">{{ form.size }}</p>
                                     <p style="color: white;">{{ form.quantity }}</p>
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-sm btn-danger text-white">Додати</button>
+                                    <button type="submit" class="btn btn-sm btn-danger text-white">Add</button>
                                 </form>
                             </div>
                         </div>
@@ -114,24 +111,6 @@
         modalVideo.currentTime = 0; // Скидаємо час відтворення
     });
 });
-</script>
-<script>
-    function toggleMedia(e) {
-        e.preventDefault(); // Скасувати перезавантаження сторінки
-        var image = document.getElementById('productImage');
-        var video = document.getElementById('productVideo');
-
-        // Переключення між зображенням та відео
-        if (video && video.src && video.src !== "" && video.style.display !== "none") {
-            // Якщо відео показане, сховати його та показати зображення
-            video.style.display = 'none';
-            image.style.display = 'block';
-        } else {
-            // Якщо зображення показане або відео відсутнє, показати відео
-            video.style.display = 'block';
-            image.style.display = 'none';
-        }
-    }
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {

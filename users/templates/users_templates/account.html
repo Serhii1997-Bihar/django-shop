@@ -16,16 +16,16 @@
                     <a href="{% url 'edit' %}">
                             <button class="btn btn-md mt-1" style="width: 100%;
                             background: linear-gradient(to left top, darkred 5%, black);
-                            color: white; backdrop-filter: blur(4px);">Редагувати</button>
+                            color: white; backdrop-filter: blur(4px);">Edit Account</button>
                     </a>
                     <a href="{% url 'messagesin' request.user.id %}"><button class="btn btn-md mt-1" style="width: 100%;
                                 background: linear-gradient(to left top, darkred 5%, black);color: white;
-                                backdrop-filter: blur(4px);">Повідомлення</button></a>
+                                backdrop-filter: blur(4px);">My messages</button></a>
                 <form method="post" action="{% url 'logout' %}" style="margin-bottom: 20px;">
                             {% csrf_token %}
                     <button class="btn btn-md mt-1" style="width: 100%;
                     background: linear-gradient(to left top, darkred 5%, black);
-                    color: white; backdrop-filter: blur(4px);">Вийти</button>
+                    color: white; backdrop-filter: blur(4px);">Log Out</button>
                 </form>
 
         </div>
@@ -36,16 +36,16 @@
                     <em style="font-size: 18px; line-height: 20px;">{{ content }}</em>
                 </div>
                 <div class="text-end w-50 d-grid" style="">
-                    <a>Електронна пошта: {{ user.email }}</a>
-                    <a>Дата народження: {{ profile.birth }}</a>
-                    <a>Захоплення: {{ profile.hobby }}</a>
-                    <a>Телефон: {{ profile.phone }}</a>
+                    <a>Email: {{ user.email }}</a>
+                    <a>Date of birth: {{ profile.birth }}</a>
+                    <a>Hobby: {{ profile.hobby }}</a>
+                    <a>Phone: {{ profile.phone }}</a>
                 </div>
             </div>
             <div class="container d-grid w-100 mt-2">
                 <div class="d-grid" style="border-radius: 15px; backdrop-filter: blur(4px);">
                     <div class="container mt-2 d-flex">
-                        <b id="openGalleryModal" style="cursor: pointer;">Фотогалерея</b>
+                        <b id="openGalleryModal" style="cursor: pointer;">Photo</b>
                     </div>
                     <div class="d-flex " style="justify-content: space-around; overflow: hidden;">
                         {% for el in images %}
@@ -63,7 +63,7 @@
                 <div class="d-grid mt-2" style="border-radius: 15px; backdrop-filter: blur(4px);">
                     <div class="container mt-2 d-flex">
                           <b id="openVideoGalleryModal" style="cursor: pointer;"
-                             data-bs-toggle="modal" data-bs-target="#videoGalleryModal">Відеогалерея</b>
+                             data-bs-toggle="modal" data-bs-target="#videoGalleryModal">Video</b>
                     </div>
                     <div class="d-flex" style="justify-content: space-around; overflow: hidden;">
                         {% for en in main_videos %}
@@ -120,7 +120,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content bg-dark">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="galleryModalLabel">Фотогалерея</h5>
+                        <h5 class="modal-title" id="galleryModalLabel">Photo</h5>
                         <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -142,7 +142,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content bg-dark">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="videoGalleryModalLabel">Відеогалерея</h5>
+                        <h5 class="modal-title" id="videoGalleryModalLabel">Video</h5>
                         <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
