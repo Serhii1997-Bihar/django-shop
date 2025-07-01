@@ -5,9 +5,8 @@
 .paginator a {text-decoration: none;}
 .product-card {
   background-color: rgba(0, 0, 0, 0.1)!important;
-  backdrop-filter: blur(25px)!important;
+  backdrop-filter: blur(8px)!important;
   border-radius: 5px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   transition: transform 0.3s ease;
 }

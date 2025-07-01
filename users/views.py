@@ -13,12 +13,14 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
 def UserCreation(request):
-    form = UserCreationForm(request.POST)
-    if form.is_valid():
-        form.save()
-        return redirect('login')
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
     else:
-        form = UserCreationForm()
+        form = UserRegistrationForm()
+
     context = {'form': form}
     return render(request, 'users_templates/registration.html', context)
 
@@ -53,12 +55,15 @@ def UserAccount(request, id):
     videos = paginator.get_page(page)
 
     import requests
-    url = 'http://api.forismatic.com/api/1.0/'
-    params = {'method': 'getQuote', 'lang': 'en', 'format': 'json'}
-    response = requests.get(url, params=params)
-    resp = response.json()
-    text = resp['quoteText']
-    author = resp['quoteAuthor']
+    try:
+        response = requests.get('https://api.quotable.io/random', timeout=5)
+        data = response.json()
+        text = data.get('content', 'No quote found')
+        author = data.get('author', 'Unknown')
+    except (requests.RequestException, ValueError):
+        text = "Keep pushing forward, even when the odds are against you."
+        author = "Fallback Bot"
+
     content = f"{text} - {author}"
 
     context = {
@@ -143,11 +148,15 @@ def UserPerson(request, id):
     videos = paginator.get_page(page)
 
     url = 'http://api.forismatic.com/api/1.0/'
-    params = {'method': 'getQuote', 'lang': 'en', 'format': 'json'}
-    response = requests.get(url, params=params)
-    resp = response.json()
-    text = resp['quoteText']
-    author = resp['quoteAuthor']
+    try:
+        response = requests.get('https://api.quotable.io/random', timeout=5)
+        data = response.json()
+        text = data.get('content', 'No quote found')
+        author = data.get('author', 'Unknown')
+    except (requests.RequestException, ValueError):
+        text = "Keep pushing forward, even when the odds are against you."
+        author = "Fallback Bot"
+
     content = f"{text} - {author}"
 
     context = {'user': user, 'profile': profile, 'images': images, 'videos': videos,
@@ -194,8 +203,7 @@ def SendMessage(request, id):
             message = MessageUser(
                 sender=req_user,
                 receiver=user,
-                content=cd['content']
-            )
+                content=cd['content'])
             message.save()
             return redirect('userperson', user.id)
     else:

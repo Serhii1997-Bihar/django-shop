@@ -29,3 +29,4 @@ db.sqlite3
 .hypothesis/
 
 products
+users_images

@@ -5,45 +5,38 @@
 {% block content %}
 <div class="container frame" style="color: white;">
         <div class="text-center d-grid left-content">
-                <a style="font-size: 20px;">{{ user.username }}</a>
-                <a>{{ user.first_name }} {{ user.last_name }}</a>
-                <a class="image" data-bs-toggle="modal" data-bs-target="#imageModal" style="backdrop-filter: blur(4px);">
+                <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+                <a class="image" data-bs-toggle="modal" data-bs-target="#imageModal">
                         <img src="{% if profile.photo %}{{ profile.photo.url }}{% else %}
                         {% static 'account_styles/User.jpg' %}{% endif %}" alt="Default Photo"
-                             style="object-fit: cover;
-                    border-radius: 15px; backdrop-filter: blur(4px); padding: 10px; height: 400px; width: 350px;">
+                             style="object-fit: cover; border-radius: 4px; backdrop-filter: blur(4px); width: 100%;">
                 </a>
                     <a href="{% url 'edit' %}">
                             <button class="btn btn-md mt-1" style="width: 100%;
-                            background: linear-gradient(to left top, darkred 5%, black);
+                            background: linear-gradient(to left top, red 5%, black);
                             color: white; backdrop-filter: blur(4px);">Edit Account</button>
                     </a>
                     <a href="{% url 'messagesin' request.user.id %}"><button class="btn btn-md mt-1" style="width: 100%;
-                                background: linear-gradient(to left top, darkred 5%, black);color: white;
-                                backdrop-filter: blur(4px);">My messages</button></a>
+                                background: linear-gradient(to left top, red 5%, black);color: white;">My messages</button></a>
                 <form method="post" action="{% url 'logout' %}" style="margin-bottom: 20px;">
                             {% csrf_token %}
                     <button class="btn btn-md mt-1" style="width: 100%;
-                    background: linear-gradient(to left top, darkred 5%, black);
+                    background: linear-gradient(to left top, red 5%, black);
                     color: white; backdrop-filter: blur(4px);">Log Out</button>
                 </form>
-
         </div>
-        <div class="container right-content" style="font-size: 18px; line-height: 17px;">
+        <div class="right-content w-100" style="font-size: 18px;">
             <div class='d-flex container w-100'>
-                <div class="w-50 text-start" style="backdrop-filter: blur(4px); padding: 15px; border-radius: 15px;
-                     width: fit-content; height: fit-content; overflow: hidden;">
-                    <em style="font-size: 18px; line-height: 20px;">{{ content }}</em>
-                </div>
-                <div class="text-end w-50 d-grid" style="">
-                    <a>Email: {{ user.email }}</a>
-                    <a>Date of birth: {{ profile.birth }}</a>
-                    <a>Hobby: {{ profile.hobby }}</a>
-                    <a>Phone: {{ profile.phone }}</a>
+
+                <div class="text-end w-100 d-grid" style="">
+                    <a>{{ user.email }}</a>
+                    <a>{{ profile.birth }}</a>
+                    <a>{{ profile.hobby }}</a>
+                    <a>{{ profile.phone }}</a>
                 </div>
             </div>
-            <div class="container d-grid w-100 mt-2">
-                <div class="d-grid" style="border-radius: 15px; backdrop-filter: blur(4px);">
+            <div class="container d-grid w-100">
+                <div class="d-grid p-3" style="border-radius: 4px; border-radius: 4px; rgba(0, 0, 0, 0.1); backdrop-filter: blur(8px);">
                     <div class="container mt-2 d-flex">
                         <b id="openGalleryModal" style="cursor: pointer;">Photo</b>
                     </div>
@@ -52,7 +45,7 @@
                         {% if el.images %}
                         <a class="image p-2" data-bs-toggle="modal" data-bs-target="#imageModal" data-id="{{ el.id }}">
                             <img src="{{ el.images.url }}" style="object-fit: contain;
-                         height: 200px; width: auto; border-radius: 7px;">
+                         height: 220px; width: auto; border-radius: 4px;">
                         </a>
                         {% else %}
 
@@ -60,8 +53,8 @@
                         {% endfor %}
                     </div>
                 </div>
-                <div class="d-grid mt-2" style="border-radius: 15px; backdrop-filter: blur(4px);">
-                    <div class="container mt-2 d-flex">
+                <div class="d-grid mt-1" style="border-radius: 7px; border-radius: 4px; rgba(0, 0, 0, 0.1); backdrop-filter: blur(8px);">
+                    <div class="container d-flex mt-1">
                           <b id="openVideoGalleryModal" style="cursor: pointer;"
                              data-bs-toggle="modal" data-bs-target="#videoGalleryModal">Video</b>
                     </div>
@@ -71,7 +64,7 @@
                                 <a class="video p-2" data-bs-toggle="modal" data-bs-target="#videoModal" data-id="{{ en.id }}">
                                     <video src="{{ en.videos.url }}" controls height="220px;"
                                            preload="auto" autoplay muted loop
-                                        style="backdrop-filter: blur(4px); border-radius: 7px;"></video>
+                                        style="backdrop-filter: blur(4px); border-radius: 4px;"></video>
                                 </a>
                             {% else %}
                             {% endif %}

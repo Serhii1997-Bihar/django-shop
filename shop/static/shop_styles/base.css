@@ -1,11 +1,12 @@
 body {
-    background: url('background (4).jpg');
-    background-repeat: repeat;
-    background-size: auto;
-    font-family: 'Montserrat', sans-serif;
+    background: url('background 1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     min-height: 100vh;
     color: white;
-}
+    font-family: "Antic Didone"!important;}
+
 
 * {
     margin: 0;
@@ -29,3 +30,12 @@ footer {
     color: white;
     align-self: end;
 }
+
+input.form-control:focus {
+        border-color: red !important;
+        box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.25) !important;
+    }
+
+    button.btn:focus {
+        box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.5) !important;
+    }

@@ -8,7 +8,6 @@
             <table class="cart">
                 <thead>
                     <tr>
-                        <th>Image</th>
                         <th>Name</th>
                         <th>Size</th>
                         <th>Quantity</th>
@@ -20,9 +19,8 @@
                 <tbody>
                     {% for item in cart %}
                     <tr>
-                        <td><img src="{{ item.product.image.url }}"></td>
                         <td>
-                            <a>{{ item.product.name }}</a>
+                            {{ item.product.name }}
                         </td>
                         <td class="num">{{ item.size }}</td>
                         <td class="num">{{ item.quantity }}</td>
@@ -43,4 +41,5 @@
                     </button>
                 </a>
         </div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 {% endblock %}

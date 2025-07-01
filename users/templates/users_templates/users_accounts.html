@@ -8,10 +8,10 @@
         {% for user in users %}
         <div class="col-sm-10 col-md-6 col-lg-4">
             <a href="{% url 'userperson' user.id %}" style="text-decoration: none; color: inherit;">
-                <div class="card shadow" style="border-radius: 15px; backdrop-filter: blur(4px); background-color: rgba(255,255,255,0.05);">
+                <div class="card shadow" style="border-radius: 4px; backdrop-filter: blur(4px); background-color: rgba(255,255,255,0.05);">
                     <img src="{% if user.profileuser.photo %}{{ user.profileuser.photo.url }}{% else %}{% static 'account_styles/User.jpg' %}{% endif %}"
                          class="card-img-top img-fluid" alt="User Photo"
-                         style="height: 350px; object-fit: cover; object-position: top; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                         style="height: 350px; object-fit: cover; object-position: top; border-top-left-radius: 4px; border-top-right-radius: 15px;">
                     <div class="card-body text-center text-white">
                         <h5 class="card-title">{{ user.username }}</h5>
                         <p class="card-text mb-1">{{ user.email }}</p>
